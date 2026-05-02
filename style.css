@@ -1,1 +1,34 @@
+/* chat container */
+.chat-container {
+  padding-top: 100px;
+}
+
+/* chat box */
+.chat-box {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  text-align: left;
+}
+
+/* message bubbles */
+.msg {
+  padding: 10px 14px;
+  border-radius: 15px;
+  margin: 8px 0;
+  max-width: 70%;
+  font-size: 16px;
+}
+
+/* received */
+.left {
+  background: #ffffffcc;
+  color: black;
+}
+
+/* sent */
+.right {
+  background: #d1c4ff;
+  margin-left: auto;
+}
 
