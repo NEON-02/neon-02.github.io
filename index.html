@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Mama Bear 💖</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<!-- 🎁 START SCREEN -->
+<div id="start" class="center">
+  <h1>🌸 something for you, mama bear</h1>
+  <button onclick="start()">open</button>
+</div>
+
+<!-- 💬 CHAT SECTION -->
+<div id="chat" class="hidden chat-container">
+  <div id="chatBox" class="chat-box"></div>
+  <button onclick="nextChat()">next</button>
+</div>
+
+<!-- 📸 GALLERY -->
+<div id="gallery" class="hidden center">
+  <h2>just small things that remind me of you 💭</h2>
+
+  <div class="photos">
+    <div class="photo">🐱</div>
+    <div class="photo">🍓</div>
+    <div class="photo">🌸</div>
+    <div class="photo">🐻</div>
+  </div>
+
+  <button onclick="goFinal()">continue</button>
+</div>
+
+<!-- 💌 FINAL SECTION -->
+<div id="final" class="center hidden">
+  <p id="finalText"></p>
+
+  <!-- 🎧 voice note (add later) -->
+  <br><br>
+  <audio controls>
+    <source src="voice.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>
