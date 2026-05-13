@@ -1,149 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>For My Mommy ♡</title>
-
+    <title>For You | Yukie</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <div class="rain-container" id="rain"></div>
+    <canvas id="canvas-particles"></canvas>
 
-    <!-- floating hearts -->
-
-    <div class="hearts">
-
-        <div class="heart" style="left:10%; animation-duration:12s; font-size:22px;">♡</div>
-        <div class="heart" style="left:20%; animation-duration:18s; font-size:28px;">♡</div>
-        <div class="heart" style="left:35%; animation-duration:14s; font-size:20px;">♡</div>
-        <div class="heart" style="left:50%; animation-duration:20s; font-size:32px;">♡</div>
-        <div class="heart" style="left:65%; animation-duration:16s; font-size:24px;">♡</div>
-        <div class="heart" style="left:80%; animation-duration:13s; font-size:26px;">♡</div>
-
-    </div>
-
-    <!-- wrapper -->
-
-    <div class="wrapper">
-
-        <div class="card">
-
-            <!-- intro -->
-
-            <div id="intro">
-
-                <h1>hey yukie mommy ♡</h1>
-
-                <p>
-                    i made something for you
-                </p>
-
-                <button id="startBtn">
-                    click here
-                </button>
-
-            </div>
-
-            <!-- content -->
-
-            <div id="content">
-
-                <div class="text">
-
-Jan 8 or 9, 2026… the day i met my mommyyyy (huge L cuz i don't remember exact date)
-
-its still "crazy" to me how someone can feel like winter rain and sunshine at the same time (Unexpected)
-
-Pastel blue skies, lavender evenings, lilies and tulips everywhere thats what you feel like to me babyyy
-
-I remember every tiny detail about you for some reason.
-
-You're the type of person who feels everything deeply.
-
-Songs become therapy for you.
-Rain feels personal.
-Fanfictions become entire universes.
-
-The moon, stars, sun, windy nights, nature —
-all this somehow makes me think about you.
-
-And honestly?
-your sensitivity is one of the prettiest things about you.
-
-11:11
-2:22
-
-Little times that somehow became meaningful because of you.
-
-You’re basically a chaotic cat in human form and somehow i ended up loving every single detail about you.
-
-And yeah…
-
-4:28am, 13/5/2026.
-
-First rejection ever tf 😭
-
-Maybe this is the end ig…
-or maybe not.
-
-Because even after everything,
-when i think about love,
-my mind still runs towards you first.
-
-Like rain finding the ocean.
-Like winter finding its stars.
-
-hm: ur eyes
-
-Special thanks to MLBB
-(floy and aamon tbh)
-
-So mommyyyyyyyy yotsuha,
-
-Will you be my girlfriend?
-
-Nah,
-i should be saying...
-
-Can i be your boyfriend?
-
-                </div>
-
-                <h1>
-                    will you be my girlfriend?
-                </h1>
-
-                <div class="buttons">
-
-                    <button id="yesBtn">
-                        yes ♡
-                    </button>
-
-                    <button id="noBtn">
-                        no
-                    </button>
-
-                </div>
-
-                <div id="final">
-
-                    <h2>
-                        YAYYYYYYY ♡
-                    </h2>
-
-                </div>
-
-            </div>
-
+    <section id="landing" class="active">
+        <div class="glass-card fade-in">
+            <h1 class="title">hey yukie mommy ♡</h1>
+            <p class="subtitle">i made something for you</p>
+            <button class="btn-glow" onclick="showLetter()">click here</button>
         </div>
+    </section>
 
-    </div>
+    <section id="letter-section" class="hidden">
+        <div class="glass-card letter-container">
+            <div class="scroll-content">
+                <h2 class="script-font">Dearest Yukie...</h2>
+                
+                <div class="custom-text">
+                    <p>
+                        Insert your emotional message here. You can add multiple 
+                        paragraphs by wrapping them in p tags like this.
+                    </p>
+                    <p>
+                        The glass container will automatically let her scroll 
+                        if your message is long!
+                    </p>
+                    </div>
+                
+                <div class="proposal-trigger">
+                    <button class="btn-glow" onclick="showProposal()">Continue...</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proposal-section" class="hidden">
+        <div class="glass-card proposal-card">
+            <h2 class="proposal-text">will you be my girlfriend?</h2>
+            <div class="btn-group">
+                <button id="yesBtn" class="btn-glow yes-btn" onclick="celebrate()">YES</button>
+                <button id="noBtn" class="no-btn">NO</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="success-section" class="hidden">
+        <div class="success-content">
+            <h1 class="yay-text">YAYYYYYYY ♡</h1>
+            <p class="subtitle">You've made me the happiest person alive.</p>
+        </div>
+    </section>
 
     <script src="script.js"></script>
-
 </body>
-
 </html>
