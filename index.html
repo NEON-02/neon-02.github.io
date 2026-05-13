@@ -1,188 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-   <link rel="stylesheet" href="style.css">
-<title>For My Mommy :3 </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For My Mommy ♡</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: Arial, sans-serif;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#cfe4ff,#dccbff);
+    overflow-x:hidden;
+    color:#4b4b4b;
+}
+
+/* background hearts */
+
+.hearts{
+    position:fixed;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    top:0;
+    left:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+.heart{
+    position:absolute;
+    bottom:-50px;
+    color:white;
+    animation:floatUp linear infinite;
+    opacity:0.5;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0) scale(1);
+        opacity:0;
     }
 
-    body{
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-        overflow:hidden;
-       <div class="hearts">
-
-    <div class="heart" style="left:10%; animation-duration:12s; font-size:20px;">♡</div>
-    <div class="heart" style="left:25%; animation-duration:18s; font-size:30px;">♡</div>
-    <div class="heart" style="left:40%; animation-duration:14s; font-size:25px;">♡</div>
-    <div class="heart" style="left:60%; animation-duration:20s; font-size:35px;">♡</div>
-    <div class="heart" style="left:80%; animation-duration:16s; font-size:22px;">♡</div>
-
-</div>
-
-
-
-
-
-       
+    20%{
+        opacity:0.5;
     }
 
-    .container{
-        text-align:center;
-        background:white;
-        padding:40px;
-        border-radius:25px;
-        width:90%;
-        max-width:600px;
-        box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    100%{
+        transform:translateY(-120vh) scale(1.4);
+        opacity:0;
+    }
+}
+
+/* center */
+
+.wrapper{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+    position:relative;
+    z-index:2;
+}
+
+/* card */
+
+.card{
+    width:100%;
+    max-width:850px;
+
+    background:rgba(255,255,255,0.28);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.35);
+
+    border-radius:35px;
+
+    padding:60px;
+
+    box-shadow:0 10px 40px rgba(0,0,0,0.12);
+
+    animation:fadeIn 1s ease;
+}
+
+/* first page */
+
+#intro{
+    text-align:center;
+}
+
+#intro h1{
+    font-size:55px;
+    color:#6d5cae;
+    margin-bottom:25px;
+}
+
+#intro p{
+    font-size:20px;
+    margin-bottom:40px;
+}
+
+/* paragraph page */
+
+#content{
+    display:none;
+    animation:fadeIn 1s ease;
+}
+
+#content h1{
+    text-align:center;
+    color:#6d5cae;
+    margin-top:50px;
+    margin-bottom:35px;
+    font-size:42px;
+}
+
+.text{
+    font-size:19px;
+    line-height:2.1;
+    white-space:pre-line;
+}
+
+/* buttons */
+
+.buttons{
+    position:relative;
+    height:170px;
+    margin-top:20px;
+}
+
+button{
+    border:none;
+    padding:18px 38px;
+    border-radius:999px;
+    font-size:19px;
+    cursor:pointer;
+    transition:0.25s;
+    font-family:'Poppins',sans-serif;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#startBtn{
+    background:#8ebeff;
+    color:white;
+}
+
+#yesBtn{
+    background:#8ebeff;
+    color:white;
+}
+
+#noBtn{
+    background:#c9a8ff;
+    color:white;
+    position:absolute;
+    margin-left:20px;
+}
+
+/* final */
+
+#final{
+    display:none;
+    text-align:center;
+    margin-top:40px;
+    animation:fadeIn 1s ease;
+}
+
+#final h2{
+    font-size:38px;
+    color:#6d5cae;
+}
+
+/* animation */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
     }
 
-    h1{
-        margin-bottom:20px;
-        color:#ff4d6d;
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* mobile */
+
+@media(max-width:700px){
+
+    .card{
+        padding:35px;
     }
 
-    p{
-        font-size:18px;
-        line-height:1.6;
-        margin-bottom:30px;
-        color:#444;
+    #intro h1{
+        font-size:40px;
     }
 
-    button{
-        border:none;
-        padding:15px 30px;
-        font-size:18px;
-        border-radius:50px;
-        cursor:pointer;
-        transition:0.2s;
+    #content h1{
+        font-size:32px;
     }
 
-    #startBtn{
-        background:#ff4d6d;
-        color:white;
+    .text{
+        font-size:17px;
     }
+}
 
-    .hidden{
-        display:none;
-    }
-
-    .buttons{
-        position:relative;
-        height:120px;
-    }
-
-    #yesBtn{
-        background:#4CAF50;
-        color:white;
-        margin-right:20px;
-    }
-
-    #noBtn{
-        background:#ff4d6d;
-        color:white;
-        position:absolute;
-    }
-
-    #finalMessage{
-        font-size:28px;
-        color:#ff4d6d;
-        margin-top:20px;
-    }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- hearts -->
 
-    <div id="firstPage">
-        <h1>oyee Yukie mommy </h1>
-        <button id="startBtn">Click Here</button>
-    </div>
+<div class="hearts">
 
-    <div id="secondPage" class="hidden">
+<div class="heart" style="left:10%; animation-duration:12s; font-size:22px;">♡</div>
+<div class="heart" style="left:20%; animation-duration:18s; font-size:28px;">♡</div>
+<div class="heart" style="left:35%; animation-duration:14s; font-size:20px;">♡</div>
+<div class="heart" style="left:50%; animation-duration:20s; font-size:32px;">♡</div>
+<div class="heart" style="left:65%; animation-duration:16s; font-size:24px;">♡</div>
+<div class="heart" style="left:80%; animation-duration:13s; font-size:26px;">♡</div>
+
+</div>
+
+<div class="wrapper">
+
+<div class="card">
+
+    <!-- intro -->
+
+    <div id="intro">
+
+        <h1>hey mommy ♡</h1>
+
         <p>
-            Jan 8 or 9, 2026… the day i met my mommyyyy (huge L cuz i don't remember exact date)
-its still "crazy" to me how someone can feel like winter rain and sunshine at the same time(Unexpected)
-Pastel blue skies, lavender evenings, lilies and tulips everywhere  thats what you feel like to me babyyy (idk wth i am yapping atp)
-I remember every tiny detail about you for some reason(small habit)
-Your the type of person who feels everything deeply maybe too deeply sometimes as u said songs become therapy for you. Rain feels personal. Fanfictions become entire universes. The moon, stars, sun, windy nights, nature not my ts but still all this makes me think about u 
-And honestly? your sensitivity is one of the prettiest things about you(HMPH). Even if you don’t see it that way.
-11:11
-2:22
-Little times that somehow became meaningful because of you(small gaming sessions)
-You’re basically a chaotic cat in human form and somehow i ended up loving every single detail about you
-And yeah…
-4:28am, 13/5/2026.
-First rejection ever tf 😭 that too from my first love 
-Maybe this is the end ig… or maybe not.
-Because even after everything, when i think about love, my mind still runs towards you first(am i a poet now?)
-Like rain finding the ocean.
-Like winter finding its stars.
-
-hm: ur eyes
-Special thanks to MLBB (floy and aamon tbh)
-So mommyyyyyyyy yotsuha ,
-
-Will you be my girlfriend? (i am going to hell fs)
-Nah i should be saying , Can i be your boyfriend ?
+            i made something for you
         </p>
 
-        <h1>Will you be my girlfriend?</h1>
+        <button id="startBtn">
+            click here
+        </button>
+
+    </div>
+
+    <!-- content -->
+
+    <div id="content">
+
+        <div class="text">
+
+WRITE PARAGRAPH HERE
+
+        </div>
+
+        <h1>
+            will you be my girlfriend?
+        </h1>
 
         <div class="buttons">
-            <button id="yesBtn">YES</button>
-            <button id="noBtn">NO</button>
+
+            <button id="yesBtn">
+                yes ♡
+            </button>
+
+            <button id="noBtn">
+                no
+            </button>
+
         </div>
 
-        <div id="finalMessage" class="hidden">
-            YAYYYYY ❤️
+        <div id="final">
+            <h2>
+                YAYYYYYYY ♡
+            </h2>
         </div>
+
     </div>
+
+</div>
 
 </div>
 
 <script>
 
 const startBtn = document.getElementById("startBtn");
-const firstPage = document.getElementById("firstPage");
-const secondPage = document.getElementById("secondPage");
+const intro = document.getElementById("intro");
+const content = document.getElementById("content");
 
-startBtn.addEventListener("click", () => {
-    firstPage.classList.add("hidden");
-    secondPage.classList.remove("hidden");
-});
+startBtn.onclick = () => {
+
+    intro.style.display = "none";
+    content.style.display = "block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+};
 
 const noBtn = document.getElementById("noBtn");
 
-noBtn.addEventListener("mouseover", () => {
+noBtn.addEventListener("mouseenter", () => {
 
-    const x = Math.floor(Math.random() * 300) - 150;
-    const y = Math.floor(Math.random() * 200) - 100;
+    const parent = document.querySelector(".buttons");
 
-    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    const maxX = parent.clientWidth - noBtn.offsetWidth;
+    const maxY = parent.clientHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
 });
 
 const yesBtn = document.getElementById("yesBtn");
-const finalMessage = document.getElementById("finalMessage");
+const final = document.getElementById("final");
 
-yesBtn.addEventListener("click", () => {
-    finalMessage.classList.remove("hidden");
-});
+yesBtn.onclick = () => {
+
+    final.style.display = "block";
+
+    window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+    });
+};
 
 </script>
 
 </body>
+</html>
 </html>
