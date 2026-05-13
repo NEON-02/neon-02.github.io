@@ -1,224 +1,116 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+// Particle and Rain System
+const canvas = document.getElementById('canvas-particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+function initCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    min-height:100vh;
-
-    background:linear-gradient(135deg,#cfe4ff,#dccbff);
-
-    overflow-x:hidden;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    padding:40px 20px;
-
-    color:#444;
-
-    position:relative;
-}
-
-/* floating hearts */
-
-.hearts{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-}
-
-.heart{
-    position:absolute;
-    bottom:-100px;
-    color:rgba(255,255,255,0.5);
-    animation:floatUp linear infinite;
-}
-
-@keyframes floatUp{
-
-    0%{
-        transform:translateY(0) scale(1);
-        opacity:0;
+class Particle {
+    constructor() {
+        this.reset();
     }
-
-    10%{
-        opacity:0.5;
+    reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 + 0.5;
+        this.opacity = Math.random() * 0.5 + 0.2;
     }
-
-    100%{
-        transform:translateY(-120vh) scale(1.5);
-        opacity:0;
+    update() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y > canvas.height) this.reset();
+    }
+    draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
     }
 }
 
-/* wrapper */
-
-.wrapper{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    z-index:2;
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animateParticles);
 }
 
-/* card */
-
-.card{
-    width:100%;
-    max-width:850px;
-
-    background:rgba(255,255,255,0.22);
-
-    backdrop-filter:blur(18px);
-
-    border-radius:35px;
-
-    padding:60px;
-
-    border:1px solid rgba(255,255,255,0.3);
-
-    box-shadow:
-    0 10px 40px rgba(0,0,0,0.12);
+// Navigation Logic
+function showLetter() {
+    transition('landing', 'letter-section');
 }
 
-/* intro */
-
-#intro{
-    text-align:center;
+function showProposal() {
+    transition('letter-section', 'proposal-section');
 }
 
-#intro h1{
-    font-size:60px;
-    color:#6b5ca5;
-    margin-bottom:20px;
+function transition(outId, inId) {
+    const outEl = document.getElementById(outId);
+    const inEl = document.getElementById(inId);
+    
+    outEl.classList.add('fade-out');
+    setTimeout(() => {
+        outEl.classList.add('hidden');
+        inEl.classList.remove('hidden');
+        inEl.classList.add('fade-in');
+    }, 800);
 }
 
-#intro p{
-    font-size:20px;
-    margin-bottom:40px;
+// "No" Button Runaway Logic
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+});
+
+// Celebration
+function celebrate() {
+    transition('proposal-section', 'success-section');
+    createHearts();
 }
 
-/* content */
-
-#content{
-    display:none;
-}
-
-.text{
-    font-size:18px;
-    line-height:2.1;
-
-    max-width:700px;
-
-    margin:auto;
-
-    white-space:pre-line;
-
-    text-align:left;
-}
-
-/* question */
-
-#content h1{
-    text-align:center;
-    font-size:52px;
-    color:#6b5ca5;
-
-    margin-top:70px;
-    margin-bottom:40px;
-}
-
-/* buttons */
-
-.buttons{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:30px;
-
-    position:relative;
-
-    height:160px;
-}
-
-button{
-    border:none;
-
-    padding:18px 42px;
-
-    border-radius:999px;
-
-    font-size:20px;
-
-    cursor:pointer;
-
-    transition:0.25s;
-
-    font-family:'Poppins',sans-serif;
-
-    box-shadow:0 8px 20px rgba(0,0,0,0.1);
-}
-
-button:hover{
-    transform:scale(1.06);
-}
-
-#startBtn,
-#yesBtn{
-    background:#8dbfff;
-    color:white;
-}
-
-#noBtn{
-    background:#c6a3ff;
-    color:white;
-
-    position:absolute;
-    left:55%;
-}
-
-/* final */
-
-#final{
-    display:none;
-    text-align:center;
-    margin-top:50px;
-}
-
-#final h2{
-    font-size:42px;
-    color:#6b5ca5;
-}
-
-/* mobile */
-
-@media(max-width:768px){
-
-    .card{
-        padding:35px;
-    }
-
-    #intro h1{
-        font-size:42px;
-    }
-
-    #content h1{
-        font-size:34px;
-    }
-
-    .text{
-        font-size:16px;
-        line-height:1.9;
-    }
-
-    button{
-        padding:15px 28px;
-        font-size:16px;
+function createHearts() {
+    for(let i=0; i<50; i++) {
+        setTimeout(() => {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.bottom = '-10%';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animation = `floatUp ${Math.random() * 3 + 2}s linear forwards`;
+            heart.style.zIndex = '100';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }, i * 100);
     }
 }
+
+// Initialize
+window.addEventListener('resize', initCanvas);
+initCanvas();
+for(let i=0; i<100; i++) particles.push(new Particle());
+animateParticles();
+
+// Add CSS for floating hearts dynamically
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes floatUp {
+    to {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}`;
+document.head.appendChild(style);
