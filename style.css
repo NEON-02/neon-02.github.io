@@ -1,116 +1,205 @@
-// Particle and Rain System
-const canvas = document.getElementById('canvas-particles');
-const ctx = canvas.getContext('2d');
-let particles = [];
-
-function initCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+:root {
+    --pastel-blue: #b3d9ff;
+    --lavender: #e6e6fa;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+    --text-color: #4a4e69;
+    --glow: rgba(179, 217, 255, 0.6);
 }
 
-class Particle {
-    constructor() {
-        this.reset();
-    }
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
-    }
-    update() {
-        this.y += this.speedY;
-        this.x += this.speedX;
-        if (this.y > canvas.height) this.reset();
-    }
-    draw() {
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    requestAnimationFrame(animateParticles);
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #d8bfd8 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
 }
 
-// Navigation Logic
-function showLetter() {
-    transition('landing', 'letter-section');
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-function showProposal() {
-    transition('letter-section', 'proposal-section');
+/* Background Atmosphere */
+.rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
 
-function transition(outId, inId) {
-    const outEl = document.getElementById(outId);
-    const inEl = document.getElementById(inId);
-    
-    outEl.classList.add('fade-out');
-    setTimeout(() => {
-        outEl.classList.add('hidden');
-        inEl.classList.remove('hidden');
-        inEl.classList.add('fade-in');
-    }, 800);
+#canvas-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
 }
 
-// "No" Button Runaway Logic
-const noBtn = document.getElementById('noBtn');
-noBtn.addEventListener('mouseover', () => {
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-    
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = x + 'px';
-    noBtn.style.top = y + 'px';
-});
-
-// Celebration
-function celebrate() {
-    transition('proposal-section', 'success-section');
-    createHearts();
+/* Glassmorphism UI */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    z-index: 10;
+    position: relative;
 }
 
-function createHearts() {
-    for(let i=0; i<50; i++) {
-        setTimeout(() => {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.bottom = '-10%';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animation = `floatUp ${Math.random() * 3 + 2}s linear forwards`;
-            heart.style.zIndex = '100';
-            document.body.appendChild(heart);
-            
-            setTimeout(() => heart.remove(), 5000);
-        }, i * 100);
-    }
+.hidden {
+    display: none !important;
 }
 
-// Initialize
-window.addEventListener('resize', initCanvas);
-initCanvas();
-for(let i=0; i<100; i++) particles.push(new Particle());
-animateParticles();
+/* Typography */
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #5d5d81;
+}
 
-// Add CSS for floating hearts dynamically
-const style = document.createElement('style');
-style.innerHTML = `
-@keyframes floatUp {
-    to {
-        transform: translateY(-120vh) rotate(360deg);
-        opacity: 0;
-    }
-}`;
-document.head.appendChild(style);
+.subtitle {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.script-font {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn-glow {
+    background: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 15px var(--glow);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #5d5d81;
+}
+
+.btn-glow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px var(--glow);
+    letter-spacing: 1px;
+}
+
+/* Letter Section */
+.letter-container {
+    max-width: 600px;
+    max-height: 80vh;
+}
+
+.scroll-content {
+    overflow-y: auto;
+    max-height: 60vh;
+    padding-right: 15px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+.scroll-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scroll-content::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+.proposal-trigger {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Proposal Styles */
+.proposal-text {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    height: 60px;
+}
+
+.no-btn {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid white;
+    padding: 12px 35px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: absolute;
+    right: 20%;
+}
+
+.yes-btn {
+    position: absolute;
+    left: 20%;
+}
+
+/* Success Animation */
+.yay-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5rem;
+    color: white;
+    text-shadow: 0 0 20px var(--glow);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Fade Transitions */
+.fade-out {
+    animation: fadeOut 0.8s forwards;
+}
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
